@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/ncleguizamon/grpc-go-course/greet/greetpb"
+	
 	"log"
 	"net"
 	"fmt"
-
-	"google.golang.org/grpc"
+    "github.com/ncleguizamon/grpc-go-course/greet/greetpb"
+	grpc "google.golang.org/grpc"
 	
 )
 type server struct{}
@@ -14,15 +14,15 @@ type server struct{}
 func main() {
 	fmt.Println("hello world")
 
-	lis, err := net.Listen("tcp", "0.0.0.0:8051")
+	lis, err := net.Listen("tcp", "0.0.0.0:8080")
 	if err != nil {
 		log.Fatalf("failed to listen! %v" , err)
 	}
 
-	s := grpc.Newserver()
+	s := grpc.NewServer()
 	greetpb.RegisterGreetServiceServer(s, &server{})
 
-	if err:= s.Server(lis); err !=nil {
+	if err := s.Serve(lis); err !=nil {
 		log.Fatalf("failed to serve %v", err)
 	}
 
